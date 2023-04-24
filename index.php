@@ -1,19 +1,10 @@
 <?php include("logic.php"); ?>
+<?php include_once("head_section.php") ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"crossorigin="anonymous"></script>
-
-    <title>Blog using PHP and MySQL</title>
+    <title>Blog App</title>
 </head>
 <body>
+
 
     <!-- display only if 'info' is present in the $_REQUEST from header location in logic.php  -->
     <div class="container mt-5">
@@ -28,7 +19,7 @@
 
             <?php }else if($_REQUEST['info'] == "updated"){ ?> 
 
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-info" role="alert">
                     Post has been updated successfully
                 </div>
 
@@ -54,12 +45,15 @@
 
             <?php foreach($query as $q) { ?>
 
-                    <div class="col-4 d-flex justify-content-center align-items-center">
-                        <div class="card bg-light mt-5"  style="width:28rem;">
+                    <div class="col-sm-12 col-md-4 d-flex justify-content-center align-items-center">
+                        <div class="card bg-light mt-5"  style="width:29rem;min-height:33rem;">
+                        <div class="card-img-top">
+                            <img src="<?php echo $q['img1']?>" alt="<?php echo $q['title']; ?>" style="width:100%;max-height:18rem;">
+                        </div>
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $q['title']; ?></h5>
                                 <p class="card-text"><?php echo $q['content']; ?></p>
-                                <a href="view.php?id=<?php echo $q['id']; ?> " class="btn btn-dark text-light">Read more <span class="text-danger">&rarr;</span></a>
+                                <a href="view.php?id=<?php echo $q['id']; ?> " class="btn btn-dark text-light">View <span class="text-warning">&rarr;</span></a>
                             </div>
                         </div>
                     </div>
