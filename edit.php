@@ -1,17 +1,8 @@
 <?php include("logic.php"); ?>
+<?php include_once("head_section.php") ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"crossorigin="anonymous"></script>
 
-    <title>Blog using PHP and MySQL</title>
+    <title>Edit blog post</title>
 </head>
 <body>
     
@@ -21,7 +12,9 @@
         <form method="GET">
             <input type="text" hidden name="id" value="<?php echo $q['id']; ?>">
             <input type="text" name="title" placeholder="Blog Title" class="form-control bg-light  my-3 text-center" value="<?php echo $q['title']; ?>">
-            <textarea name="content" class="form-control bg-light  my-3"><?php echo $q['content']; ?></textarea>
+            <textarea name="content" class="form-control bg-light  my-3" rows="10">
+                <?php echo $q['content']; ?>
+            </textarea>
             <button name="update" class="btn btn-dark">Update</button>
         </form>
     </div>

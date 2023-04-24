@@ -1,29 +1,34 @@
 <?php include("logic.php"); ?>
+<?php include_once("head_section.php") ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"crossorigin="anonymous"></script>
 
-    <title>Blog using PHP and MySQL</title>
+    <title>Create blog post</title>
 </head>
 <body>
-    
+ 
 
-    <div class="container mt-5">
-        <form method="GET">
+
+    <div class="container mt-5 col-sm-12 col-md-8">
+
+        <div class="d-flex">
+            <a href="index.php" class="btn btn-outline-dark btn-sm">Home</a>
+        </div> 
+
+        <form method="POST" enctype="multipart/form-data" class="form-group">
+
             <input type="text" name="title" placeholder="Blog Title" class="form-control bg-light  my-3 text-center">
-            <textarea name="content" class="form-control bg-light  my-3"></textarea>
-            <button name="new_post" class="btn btn-dark">Add Post</button>
+            <textarea name="content" class="form-control bg-light  my-3" rows="10"></textarea>
+
+            <div class="form-group">
+                <label for="file"> Select image to upload:</label>
+                <input type="file" name="fileToUpload" id="fileToUpload" class="form-control-file">
+            </div>
+
+
+            <button name="new_post" class="btn btn-dark mt-5">Add Post</button>
         </form>
     </div>
-
+  
 
 
 
