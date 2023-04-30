@@ -1,13 +1,17 @@
 <?php include("logic.php"); ?>
 <?php include_once("head_section.php") ?>
 
+
+
+
     <title>Blog App</title>
 </head>
 <body>
+<?php include_once('nav.php'); ?>
 
 
     <!-- display only if 'info' is present in the $_REQUEST from header location in logic.php  -->
-    <div class="container mt-5">
+    <div class="container-xxl mt-5">
 
         <?php if(isset($_REQUEST['info'])) { ?>
 
@@ -35,25 +39,29 @@
 
         <?php } ?>
 
-        <!-- button to create post  -->
-        <div class="text-center">
-            <a href="create.php" class="btn btn-outline-dark">+ Create a new post</a>
-        </div>
 
         <!-- render all blog from db from $query in logic.php  -->
         <div class="row">
 
-            <?php foreach($query as $q) { ?>
-
-                    <div class="col-sm-12 col-md-4 d-flex justify-content-center align-items-center">
-                        <div class="card bg-light mt-5"  style="width:29rem;min-height:33rem;">
-                        <div class="card-img-top">
-                            <img src="<?php echo $q['img1']?>" alt="<?php echo $q['title']; ?>" style="width:100%;max-height:18rem;">
-                        </div>
+            <?php 
+                $count = 0;
+                foreach($query as $q) { 
+                    $count = $count + 1; ?>
+                    
+                    <div class="col-sm-12 col-md-6 col-lg-4 d-flex justify-content-center align-items-center">
+                        <div class="card bg-light mt-5"  style="width:29rem;min-height:15rem;">
                             <div class="card-body">
-                                <h5 class="card-title"><?php echo $q['title']; ?></h5>
+                                <p>Blog ID <?php echo $q['id']; ?><span class="badge bg-primary float-end fs-6"><?php echo $q['category']; ?></span></p>
+                                <h5 class="card-title border-bottom border-secondary"><?php echo $q['title']; ?></h5>
                                 <p class="card-text"><?php echo $q['content']; ?></p>
-                                <a href="view.php?id=<?php echo $q['id']; ?> " class="btn btn-dark text-light">View <span class="text-warning">&rarr;</span></a>
+                                <div class="d-flex justify-content-between">
+                                    <a href="view.php?id=<?php echo $q['id']; ?> " class="btn btn-dark text-light mt-3 py-3">View <span class="text-danger">&rarr;</span></a>
+                                    <div class="btn-group">
+                                        <img src="<?php echo $q['img1']; ?>" alt="" style="width:80px;height:80px;" class="me-1">
+                                        <img src="<?php echo $q['img2']; ?>" alt="" style="width:80px;height:80px;">
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -61,6 +69,8 @@
             <?php } ?>
 
         </div>
+
+        <h3 class="alert-secondary mt-5 mb-5 d-flex justify-content-center p-2">Total records <span class="badge bg-primary ms-3"><?php echo $count; ?></span></h3>
 
     </div>
 

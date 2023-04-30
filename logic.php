@@ -9,7 +9,7 @@
 
 
     // select all records from db accesibly by $query 
-    $sql = "SELECT * FROM data";
+    $sql = "SELECT * FROM brm";
     $query = mysqli_query($conn, $sql);
 
 
@@ -65,11 +65,70 @@
         }
         }
 
+        $target_dir2 = "uploads/";
+        $target_file2 = $target_dir2 . basename($_FILES["fileToUpload2"]["name"]);
+        $uploadOk2 = 1;
+        $imageFileType2 = strtolower(pathinfo($target_file2,PATHINFO_EXTENSION));
+
+
+        // Check if image file is a actual image or fake image
+        
+        $check = getimagesize($_FILES["fileToUpload2"]["tmp_name"]);
+        if($check !== false) {
+            echo "File is an image - " . $check["mime"] . ".";
+            $uploadOk2 = 1;
+        } else {
+            echo "File is not an image.";
+            $uploadOk2 = 0;
+        }
+        
+        // Check if file already exists
+        if (file_exists($target_file2)) {
+        echo "Sorry, file already exists.";
+        $uploadOk2 = 0;
+        }
+
+        // Check file size
+        if ($_FILES["fileToUpload2"]["size"] > 500000000) {
+        echo "Sorry, your file is too large.";
+        $uploadOk2 = 0;
+        }
+
+        // Allow certain file formats
+        if($imageFileType2 != "jpg" && $imageFileType2 != "png" && $imageFileType2 != "jpeg"
+        && $imageFileType2 != "gif" ) {
+        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        $uploadOk = 0;
+        }
+
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk2 == 0) {
+        echo "Sorry, your file was not uploaded.";
+        // if everything is ok, try to upload file
+        } else {
+        if (move_uploaded_file($_FILES["fileToUpload2"]["tmp_name"], $target_file2)) {
+            echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload2"]["name"])). " has been uploaded.";
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+        }
+        }
+
         $title = $_REQUEST['title'];
         $content = $_REQUEST['content'];
-        $img1 = $target_file;
+        $category = $_REQUEST['category'];
+        $author = $_REQUEST['author'];
+        $avatar = $_REQUEST['avatar'];
+        $id = $_REQUEST['id'];
+        $date = $_REQUEST['date'];
+        $project = $_REQUEST['project'];
+        $isHero = $_REQUEST['isHero'];
+        $purpose = $_REQUEST['purpose'];
 
-        $sql = "INSERT INTO data (title, content, img1) VALUES ('$title', '$content', '$img1')";
+        $img1 = $target_file;
+        $img2 = $target_file2;
+
+        $sql = "INSERT INTO brm (purpose, category, title, date, author, avatar, content, img1, img2, project, id, isHero) 
+                VALUES ('$purpose', '$category', '$title', '$date', '$author', '$avatar', '$content', '$img1', '$img2', '$project', '$id', '$isHero')";
         mysqli_query($conn, $sql);
 
         // location where to be directed to after sql query 
@@ -85,7 +144,7 @@
     if(isset($_REQUEST['id'])) {
         $id = $_REQUEST['id'];
 
-        $sql = "SELECT * FROM data WHERE id = $id";
+        $sql = "SELECT * FROM brm WHERE id = $id";
         $query = mysqli_query($conn, $sql);
     }
 
@@ -93,12 +152,22 @@
     // if request contains edit button name return on request
     if(isset($_REQUEST['update'])) {
 
-        $id = $_REQUEST['id'];
         $title = $_REQUEST['title'];
         $content = $_REQUEST['content'];
+        $category = $_REQUEST['category'];
+        $author = $_REQUEST['author'];
+        $avatar = $_REQUEST['avatar'];
+        $id = $_REQUEST['id'];
+        $date = $_REQUEST['date'];
+        $project = $_REQUEST['project'];
+        $isHero = $_REQUEST['isHero'];
+        $purpose = $_REQUEST['purpose'];
+        $img1 = $_REQUEST['img1'];
+        $img2 = $_REQUEST['img2'];
 
 
-        $sql = "UPDATE data SET title = '$title', content = '$content' WHERE id = $id ";
+        $sql = "UPDATE brm SET title = '$title', content = '$content', category = '$category', author = '$author', avatar = '$avatar', date = '$date', 
+                                project = '$project', isHero = '$isHero', purpose = '$purpose', img1 = '$img1', img2 = '$img2' WHERE id = $id ";
         mysqli_query($conn, $sql);
 
         // location where to be directed to after sql query 
@@ -111,7 +180,7 @@
     if(isset($_REQUEST['delete'])) {
         $id = $_REQUEST['id'];
 
-        $sql = "DELETE FROM data WHERE id = $id";
+        $sql = "DELETE FROM brm WHERE id = $id";
         $query = mysqli_query($conn, $sql);
 
                 // location where to be directed to after sql query 
