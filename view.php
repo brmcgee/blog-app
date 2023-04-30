@@ -5,42 +5,70 @@
     <title>View blog post</title>
 </head>
 <body>
+<?php include_once("nav.php")?>
 
     <div class="container mt-5">
 
         <?php foreach($query as $q) { ?>
 
-            <div class="bg-light p-5 rounded text-center">
-                
-                <div class="d-flex justify-content-end">
-                    <a href="index.php" class="btn btn-outline-dark btn-sm">Home</a>
-                </div>
-
-                <div class="d-md-flex">
-                    <div class="img-fluid" style="max-width:19rem;">
-                        <img src="<?php echo $q['img1']?>" alt="<?php echo $q['title']; ?>" class="img img-fluid">
-                    </div>
-                    <h1 class="text-center p-2 display-2"><?php echo $q['title']; ?></h1>
-                </div>
-
-                <div class="d-flex mt-2 justify-content-end">
-                    <a href="edit.php?id=<?php echo $q['id']; ?>" class="btn btn-dark btn-sm me-1">Edit</a>
-
-                    <form method="post">
-                        <input type="text" hidden name="id" value="<?php echo $q['id']; ?>">
-                        <button class="btn btn-danger btn-sm ml-2" name="delete">Delete</button>
-                    </form>
-
-                </div>
-
-            </div>
-            <p class="mt-5 ps-5 border-left border-dark pl-3 fs-5"><?php echo $q['content']; ?></p>
-
-        <?php } ?>
        
     </div>
 
+    <div class="container-xl overflow-hidden p-1">
 
+        <div class="row g-0">
+            <div class="col-lg-7 order-md-1" style="min-height: 55vh; background-size: cover; background-position: center; background-image: url('<?php echo $q['img1']; ?>');">
+
+            </div>
+            <div class="col-lg-5 order-md-2 my-auto text-center">
+
+                <div class="lc-block m-3">
+                    <div>
+                    <span class="badge rounded-pill bg-dark"><?php echo $q['category']; ?></span>
+                        <h2><?php echo $q['title']; ?></h2>
+                        <p class="lead"><?php echo $q['content']; ?> </p>
+
+                    </div>
+
+                </div>
+                <div class="container p-5">
+
+                    <div class="d-flex m-5">
+                    
+                        <a href="edit.php?id=<?php echo $q['id']; ?>" class="btn btn-dark btn-sm me-1">Edit</a>
+
+                        <form method="post">
+                            <input type="text" hidden name="id" value="<?php echo $q['id']; ?>">
+                            <button class="btn btn-danger btn-sm ml-2" name="delete">Delete</button>
+                        </form>
+                    </div>
+
+                    <div class="d-md-flex justify-content-between mx-2">
+                        <div class="">
+                            <img src="<?php echo $q['img2']; ?>" alt="" class="img-responsive p-1" style="height:200px;">
+                        </div>
+                        <div class="">
+                            <img src="<?php echo $q['avatar']; ?>" alt="" class="img-responsive p-1" style="height:70px;border-radius:50%;">
+                            <p><?php echo $q['author']; ?>
+                                <br><span><?php echo $q['date']; ?></span>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+
+              </div>
+
+
+            </div>
+        </div>
+    </div>        
+
+
+
+<?php } ?>
+
+</div>
 
 
 
