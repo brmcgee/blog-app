@@ -5,16 +5,17 @@
     <title>View blog post</title>
 </head>
 <body>
-<?php include_once("nav.php")?>
 
-    <div class="container mt-5">
+    <?php include_once("nav.php")?>
 
-        <?php foreach($query as $q) { ?>
-
+    <?php foreach($query as $q) { ?>
+    <?php 
+        $next = $q['id'] + 1;
+        $prev = $q['id'] - 1; 
+    ?> 
        
-    </div>
+    <div class="container-xl overflow-hidden p-1 mt-3">
 
-    <div class="container-xl overflow-hidden p-1">
 
         <div class="row g-0">
             <div class="col-lg-7 order-md-1" style="min-height: 55vh; background-size: cover; background-position: center; background-image: url('<?php echo $q['img1']; ?>');">
@@ -24,34 +25,34 @@
 
                 <div class="lc-block m-3">
                     <div>
-                    <span class="badge rounded-pill bg-dark"><?php echo $q['category']; ?></span>
+                    <h1 class="badge rounded-pill bg-primary fs-5"><?php echo $q['category']; ?></h1>
                         <h2><?php echo $q['title']; ?></h2>
-                        <p class="lead"><?php echo $q['content']; ?> </p>
-
+                        <p class="fs-6"><?php echo $q['content']; ?> </p>
                     </div>
 
                 </div>
-                <div class="container p-5">
+                <div class="container">
 
-                    <div class="d-flex m-5">
+                    <div class="mx-auto d-block">
                     
-                        <a href="edit.php?id=<?php echo $q['id']; ?>" class="btn btn-dark btn-sm me-1">Edit</a>
+                        <a href="edit.php?id=<?php echo $q['id']; ?>" class="btn btn-outline-dark btn-sm me-1 px-5">Edit</a>
 
-                        <form method="post">
-                            <input type="text" hidden name="id" value="<?php echo $q['id']; ?>">
-                            <button class="btn btn-danger btn-sm ml-2" name="delete">Delete</button>
-                        </form>
+                        <!-- <form method="post">
+                            <input type="text" hidden name="id" value=" echo $q['id']; ">
+                            <button class="btn btn-primary btn-sm ml-2" name="delete">Delete</button>
+                        </form> -->
                     </div>
 
-                    <div class="d-md-flex justify-content-between mx-2">
+                    <div class="d-md-flex justify-content-between px-1 mt-3">
                         <div class="">
-                            <img src="<?php echo $q['img2']; ?>" alt="" class="img-responsive p-1" style="height:200px;">
+                            <img src="<?php echo $q['img2']; ?>" alt="" class="img-responsive p-1" style="height:270px;">
                         </div>
                         <div class="">
-                            <img src="<?php echo $q['avatar']; ?>" alt="" class="img-responsive p-1" style="height:70px;border-radius:50%;">
+                            <img src="<?php echo $q['avatar']; ?>" alt="" class="img-responsive p-1" style="width:70px;height:70px;border-radius:50%;">
                             <p><?php echo $q['author']; ?>
                                 <br><span><?php echo $q['date']; ?></span>
                             </p>
+                            <p>Blog ID <?php echo $q['id']; ?></p>
 
                         </div>
                     </div>
@@ -64,6 +65,10 @@
         </div>
     </div>        
 
+    <div class="d-flex justify-content-center pb-5">
+        <a href="view.php?id=<?php echo $prev; ?> " class="btn btn-primary btn-sm text-light px-3">Prev</a>
+        <a href="view.php?id=<?php echo $next; ?> " class="btn btn-dark btn-sm text-light px-3 ms-1">Next</a>
+    </div>
 
 
 <?php } ?>
