@@ -177,16 +177,31 @@
 
     // delete post and update DB 
     // if request contains edit button name return on request
+    
+    if (isset($_SESSION['loggedIn'])) {
+
+        if(isset($_REQUEST['delete'])) {
+            $id = $_REQUEST['id'];
+    
+            $sql = "DELETE FROM brm WHERE id = $id";
+            $query = mysqli_query($conn, $sql);
+    
+                    // location where to be directed to after sql query 
+                    header("Location: index.php?info=deleted");
+                    exit();
+        } 
+
+    } 
+
     if(isset($_REQUEST['delete'])) {
-        $id = $_REQUEST['id'];
-
-        $sql = "DELETE FROM brm WHERE id = $id";
-        $query = mysqli_query($conn, $sql);
-
-                // location where to be directed to after sql query 
-                header("Location: index.php?info=deleted");
-                exit();
+        if (!isset($_SESSION['loggedIn'])) {
+            header("Location: index.php?info=invalid");
+            exit();
+        }
     }
+
+
+
 
 
 ?>

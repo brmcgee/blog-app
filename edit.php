@@ -1,3 +1,11 @@
+<?php
+require('access.php');
+?>
+<div class="alert alert-info p-0 m-0 pe-3 text-end" role="alert">
+  <a href="logout.php">Log out</a>
+</div>
+
+
 <?php include("logic.php"); ?>
 <?php include_once("head_section.php") ?>
 
@@ -9,15 +17,26 @@
 <?php include_once("nav.php")?>
    
 <?php foreach($query as $q) {?>
+    
+    <?php 
+        $next = $q['id'] + 1;
+        $prev = $q['id'] - 1; 
+    ?> 
 
     <div class="container-fluid mt-5 col-sm-11 col-md-10 col-lg-8">
+
+    <div class="btn-group">
+        <a href="edit.php?id=<?php echo $prev; ?> " class="btn btn-danger text-light mb-1">Prev</a>
+        <a href="edit.php?id=<?php echo $next; ?> " class="btn btn-success text-light mb-1">Next</a>
+    </div>
+
         <form method="GET">
           <div class="row">
 
             <div class="col-md-2">
                 <label for="id">Blog ID</label>
                 <p class="py-2 display-6"><?php echo $q['id']; ?></p>
-                <input type="text" name="id"  placeholder="Blog ID" class="form-control bg-light  my-3 text-center" value="<?php echo $q['id']; ?>">
+                <input type="text" name="id" hidden placeholder="Blog ID" class="form-control bg-light  my-3 text-center" value="<?php echo $q['id']; ?>">
             </div>
             <div class="col-md-3">
                 <label for="date">Date</label>
@@ -57,14 +76,14 @@
             <div class="col-md-12">
 
                 <label for="content">Content</label>
-                <textarea name="content" class="form-control bg-light  my-3" rows="4"><?php echo $q['content']; ?></textarea>
+                <textarea name="content" class="form-control bg-light  my-3" rows="10"><?php echo $q['content']; ?></textarea>
 
             </div>
         </div>
 
         <div class="row">
 
-            <div class="col-4">
+            <div class="col-sm-12 col-md-4">
                 <label for="author">Author</label>
                 <input type="text" name="author" placeholder="Blog Author" class="form-control bg-light  my-3 text-center" value="<?php echo $q['author']; ?>">
             </div>
@@ -97,7 +116,14 @@
 
 
             <button name="update" class="btn btn-dark">Update</button>
+            
         </form>
+
+        <form method="post">
+            <input type="text" hidden name="id" value="<?php echo $q['id']; ?>">
+            <button class="btn btn-primary mt-2" name="delete">Delete</button>
+        </form>
+
     </div>
 
 <?php } ?>
